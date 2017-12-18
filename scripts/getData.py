@@ -1,10 +1,8 @@
 #!/usr/bin/env python
-
-from urllib.request import urlopen
-import string, os, time, json, re, unicodedata, html.parser
+import string, os, time, json, re, unicodedata, html.parser, requests
 
 # Bon appetit cafe hours api url
-url = "http://legacy.cafebonappetit.com/api/2/cafes?cafe="
+url = "http://legacy.cafebonappetit.com/api/2/cafes"
 # How many cafeterias you want to parse (in order)
 totalCafes = 1818
 # What our file should be named
@@ -19,7 +17,8 @@ h = html.parser.HTMLParser()
 start = time.time()
 
 def appendData(cafeId, cafeName, cafeLoc):
-	responseData.append({'id':cafeId,'label':cafeName, 'desc':cafeLoc})
+	print(cafeId + ") " + cafeName + " in " + cafeLoc)
+	responseData.append({'id':cafeId, 'label':cafeName, 'desc':cafeLoc})
 
 
 def cleanUpTitle(stringToClean):
@@ -28,9 +27,8 @@ def cleanUpTitle(stringToClean):
 	# Replace html
 	cleanString = h.unescape(string)
 	# Replace unicode
-	cleanString2 = unicodedata.normalize('NFKD', cleanString).encode('ascii','ignore')
-	# Capitalize string
-	return cleanString2[0].capitalize() + cleanString2[1:]
+	cleanString2 = unicodedata.normalize('NFKD', cleanString)
+	return cleanString2
 
 
 def cleanUpLocation(stringToClean):
@@ -38,27 +36,16 @@ def cleanUpLocation(stringToClean):
 	string = stringToClean.strip()
 	# Replace html
 	cleanString = h.unescape(string)
-	# Replace unicode
-	cleanString2 = unicodedata.normalize('NFKD', cleanString).encode('ascii','ignore')
-
-	# Handle city/state (length will be longer than 2 chars)
-	if len(cleanString2) > 2:
-		# Capitalize each first letter
-		string2 = cleanString2.title()
-	else:
-		string2 = cleanString2[0].capitalize() + cleanString2[1:]
-
-	return string2
+	# Replace unicodecleanString
+	cleanString2 = unicodedata.normalize('NFKD', cleanString)
+	return cleanString2
 
 
 # Finds the cafeteria id and name
 def getBonAppMenuData(url, id):
-	# Construct the full url
-	url2 = ''.join([url, str(id)])
-
-	# Receive the content of url and convert it to a string
-	response  = urlopen(url2)
-	data = str(response.read())
+	params = {'cafe': id}
+	response = requests.get(url, params=params)
+	data = response.text
 
 	try:
 		# Grab cafe Id from JSON
@@ -102,6 +89,7 @@ def getBonAppMenuData(url, id):
 		# Construct the full return string
 		appendData(cafeId, cafeName, cafeLoc)
 	except:
+		print('[Skipping. Moving on...]')
 		pass
 
 # Round numbers to a decimal point
@@ -117,18 +105,17 @@ def calculateFileSize():
 
 # Loop through the "known" amount of cafes
 for num in range(0, totalCafes):
-	# Start yer engines, Jed
 	getBonAppMenuData(url, num)
+	time.sleep(3)
 
 # Write our output to a file
 with open(fileName, 'w') as outfile:
 	# Output the data into a file
 		json.dump(responseData, outfile)
-		# Play a sound to alert that we have finished
-		os.system('afplay /System/Library/Sounds/Glass.aiff')
 		# Save the runtime
 		endTime = time.time() - start;
 
+print('')
 print('File: ' + fileName)
 print('Size: ' + calculateFileSize() + ' bytes')
 print('This took ' + num2str(endTime, 2) + ' seconds\n')
