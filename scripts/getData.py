@@ -88,9 +88,7 @@ def num2str(num, precision):
 
 # Get the outfile's size
 def calculateFileSize():
-	fileSize = os.path.getsize(fileName)
-	fileSize = str(fileSize)
-	return fileSize
+	return str(os.path.getsize(fileName))
 
 
 # Loop through the "known" amount of cafes
