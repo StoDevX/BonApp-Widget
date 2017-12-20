@@ -66,7 +66,7 @@ render: function(output) {
       var postedDate = new Date(y, m - 1, d).toString()
       postedDate = postedDate.substr(0, 10)
 
-      return postedDate.toString()
+      return postedDate
     }
 
 
