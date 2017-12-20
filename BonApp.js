@@ -224,40 +224,40 @@ render: function(output) {
     }
 
 
-    var updateView = function(dom, theDate, widgetSelect, title, outputString) {
+    var updateView = function(theDate, widgetSelect, title, outputString) {
       var err
       var theLastUpdate = lastUpdated
 
       try {
-        $(document).find(widgetSelectTitle).html(widgetSelect)
+        $(domEl).find(widgetSelectTitle).html(widgetSelect)
       }
       catch (_error) {
         err = _error
         console.log('Error: "' + err.message + '" on line ' + err.line)
       }
       try {
-        $(document).find(widgetTitle).html(title)
+       $(domEl).find(widgetTitle).html(title)
       }
       catch (_error) {
         err = _error
         console.log('Error: "' + err.message + '" on line ' + err.line)
       }
       try {
-        $(document).find(date).html(theDate)
+        $(domEl).find(date).html(theDate)
       }
       catch (_error) {
         err = _error
         console.log('Error: "' + err.message + '" on line ' + err.line)
       }
       try {
-        $(document).find(footerBA).html(theLastUpdate)
+        $(domEl).find(footerBA).html(theLastUpdate)
       }
       catch (_error) {
         err = _error
         console.log('Error: "' + err.message + '" on line ' + err.line)
       }
       try {
-        return $(document).find(food).html(outputString)
+        return $(domEl).find(food).html(outputString)
       }
       catch (_error) {
         err = _error
@@ -337,11 +337,11 @@ render: function(output) {
         friendly = parseMenu(theMenu, diet)
         outputString = createOutputString(friendly)
 
-        return updateView(domEl, theDate, widgetSelect, title, outputString)
+        return updateView(theDate, widgetSelect, title, outputString)
     }
 
 
-      return updateView(dom, theDate, widgetSelect, title, outputString)
+      return updateView(theDate, widgetSelect, title, outputString)
     }
 
 
