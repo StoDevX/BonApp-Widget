@@ -170,18 +170,13 @@ render: function(output) {
       }
     }
 
-
-    var updateTheData = (function(_this) {
-      return function(cafeId) {
-        var theCommand = 'curl -s \'http://legacy.cafebonappetit.com/api/2/menus?cafe=' + cafeId + "'"
-
-        return _this.run(theCommand, function(err, myOut) {
-          makeItAllHappen(myOut)
-          return changeTheView()
-        })
-      }
-    })(this)
-
+    const updateTheData = (cafeId) => {
+      const cmd = `curl -s http://legacy.cafebonappetit.com/api/2/menus?cafe=${cafeId}`
+      return this.run(cmd, (err, output) => {
+        makeItAllHappen(output)
+        return changeTheView()
+      })
+    }
 
     var initSearch = function() {
       return jQuery.get('BonApp-Widget/scripts/data.json', function(data) {
@@ -312,7 +307,6 @@ render: function(output) {
 
 
    var makeItAllHappen = function(output) {
-      var dom          = $(domEl)
       var savedDiet    = initFromLocalStorage()
       var jstringObj   = JSON.parse(output)
       var title        = parseCafe(jstringObj)
