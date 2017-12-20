@@ -225,33 +225,9 @@ render: function(output) {
 
       try {
         $(domEl).find(widgetSelectTitle).html(widgetSelect)
-      }
-      catch (_error) {
-        err = _error
-        console.log('Error: "' + err.message + '" on line ' + err.line)
-      }
-      try {
-       $(domEl).find(widgetTitle).html(title)
-      }
-      catch (_error) {
-        err = _error
-        console.log('Error: "' + err.message + '" on line ' + err.line)
-      }
-      try {
+        $(domEl).find(widgetTitle).html(title)
         $(domEl).find(date).html(theDate)
-      }
-      catch (_error) {
-        err = _error
-        console.log('Error: "' + err.message + '" on line ' + err.line)
-      }
-      try {
         $(domEl).find(footerBA).html(theLastUpdate)
-      }
-      catch (_error) {
-        err = _error
-        console.log('Error: "' + err.message + '" on line ' + err.line)
-      }
-      try {
         return $(domEl).find(food).html(outputString)
       }
       catch (_error) {
