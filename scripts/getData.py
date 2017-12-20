@@ -33,8 +33,7 @@ def clean(stringToClean):
 
 # Finds the cafeteria id and name
 def getBonAppMenuData(url, id):
-	params = {'cafe': id}
-	response = requests.get(url, params=params)
+	response = requests.get(url, params={'cafe': id})
 	data = response.json()
 
 	try:
