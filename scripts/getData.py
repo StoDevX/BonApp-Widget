@@ -111,9 +111,9 @@ for num in range(0, totalCafes):
 # Write our output to a file
 with open(fileName, 'w') as outfile:
 	# Output the data into a file
-		json.dump(responseData, outfile)
-		# Save the runtime
-		endTime = time.time() - start;
+	json.dump(responseData, outfile)
+	# Save the runtime
+	endTime = time.time() - start;
 
 print('')
 print('File: ' + fileName)
