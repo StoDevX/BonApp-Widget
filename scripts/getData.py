@@ -33,26 +33,27 @@ def clean(stringToClean):
 
 # Finds the cafeteria id and name
 def getBonAppMenuData(url, id):
-	response = requests.get(url, params={'cafe': id})
-	data = response.text
+	params = {'cafe': id}
+	response = requests.get(url, params=params)
+	data = response.json()
 
 	try:
 		# Grab cafe Id from JSON
-		cafeId = list(json.loads(data)["cafes"].keys())[0]
+		cafeId = list(data["cafes"].keys())[0]
 
 		# Grab cafe name from JSON
-		cafeName = json.loads(data)["cafes"][cafeId]["name"]
+		cafeName = data["cafes"][cafeId]["name"]
 
 
 		# We want to display titles at least. We can do without location.
 		try:
 			# Grab cafe city from JSON
-			cafeCity = json.loads(data)["cafes"][cafeId]["city"]
+			cafeCity = data["cafes"][cafeId]["city"]
 		except:
 			cafeCity = ""
 		try:
 			# Grab cafe state from JSON
-			cafeState = json.loads(data)["cafes"][cafeId]["state"]
+			cafeState = data["cafes"][cafeId]["state"]
 		except:
 			cafeState = ""
 
