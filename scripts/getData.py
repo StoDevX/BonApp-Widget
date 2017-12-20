@@ -46,17 +46,11 @@ def getBonAppMenuData(url, id):
 
 
 		# We want to display titles at least. We can do without location.
-		try:
-			# Grab cafe city from JSON
-			cafeCity = data["cafes"][cafeId]["city"]
-		except:
-			cafeCity = ""
-		try:
-			# Grab cafe state from JSON
-			cafeState = data["cafes"][cafeId]["state"]
-		except:
-			cafeState = ""
+		# Grab cafe city from JSON
+		cafeCity = data["cafes"][cafeId].get("city", "")
 
+		# Grab cafe state from JSON
+		cafeState = data["cafes"][cafeId].get("state", "")
 
 		# Formatting city and state strings
 		# Both empty
