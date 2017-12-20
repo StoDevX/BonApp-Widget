@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import string, os, time, json, re, unicodedata, html.parser, requests
 
 # Bon appetit cafe hours api url
