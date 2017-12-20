@@ -21,22 +21,12 @@ def appendData(cafeId, cafeName, cafeLoc):
 	responseData.append({'id':cafeId, 'label':cafeName, 'desc':cafeLoc})
 
 
-def cleanUpTitle(stringToClean):
+def clean(stringToClean):
 	# Remove beginning and ending whitespace
 	string = stringToClean.strip()
 	# Replace html
 	cleanString = h.unescape(string)
 	# Replace unicode
-	cleanString2 = unicodedata.normalize('NFKD', cleanString)
-	return cleanString2
-
-
-def cleanUpLocation(stringToClean):
-	# Remove beginning and ending whitespace
-	string = stringToClean.strip()
-	# Replace html
-	cleanString = h.unescape(string)
-	# Replace unicodecleanString
 	cleanString2 = unicodedata.normalize('NFKD', cleanString)
 	return cleanString2
 
@@ -74,17 +64,17 @@ def getBonAppMenuData(url, id):
 			cafeLoc = "No location listed"
 		# Only city
 		elif cafeCity != "" and cafeState == "":
-			cafeLoc = cleanUpLocation(cafeCity)
+			cafeLoc = clean(cafeCity)
 		# Only State
 		elif cafeCity == "" and cafeState != "":
-			cafeLoc = cleanUpLocation(cafeState)
+			cafeLoc = clean(cafeState)
 		# City and State
 		else:
-			cafeLoc = cleanUpLocation(cafeCity) + ", " + cleanUpLocation(cafeState)
+			cafeLoc = clean(cafeCity) + ", " + clean(cafeState)
 
 
 		# Clean up the cafe name
-		cafeName = cleanUpTitle(cafeName)
+		cafeName = clean(cafeName)
 
 		# Construct the full return string
 		appendData(cafeId, cafeName, cafeLoc)
