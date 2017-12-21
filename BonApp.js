@@ -4,8 +4,8 @@ refreshFrequency: 300000,
 render: function(output) {
   return [
       '<link rel="stylesheet" href="BonApp-Widget/styles/bonAppStyle.css">',
-      '<link rel="stylesheet" href="BonApp-widget/styles/jquery/jquery-ui.css">',
-      '<script src="BonApp-widget/scripts/jquery/jquery-ui.js.lib"></script>',
+      '<link rel="stylesheet" href="BonApp-Widget/styles/jquery/jquery-ui.css">',
+      '<script src="BonApp-Widget/scripts/jquery/jquery-ui.js.lib"></script>',
 
       '<div id="bonApp" class="noSelect">',
         //'<div id="noNetwork"><span>Could not update</span></div>',
