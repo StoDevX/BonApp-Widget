@@ -4,7 +4,7 @@ import string, os, time, json, re, unicodedata, html.parser, requests
 # Bon appetit cafe hours api url
 url = "http://legacy.cafebonappetit.com/api/2/cafes"
 # How many cafeterias you want to parse (in order)
-totalCafes = 10
+totalCafes = 1818
 # What our file should be named
 fileName = "data.json"
 
