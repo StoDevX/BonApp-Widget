@@ -220,7 +220,6 @@ render: function(output) {
 
 
     var updateView = function(theDate, widgetSelect, title, outputString) {
-      var err
       var theLastUpdate = lastUpdated
 
       try {
@@ -231,8 +230,7 @@ render: function(output) {
         return $(domEl).find(food).html(outputString)
       }
       catch (_error) {
-        err = _error
-        console.log('Error: "' + err.message + '" on line ' + err.line)
+        console.log('Error: "' + _error.message + '" on line ' + _error.line)
       }
     }
 
