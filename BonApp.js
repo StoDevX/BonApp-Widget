@@ -100,7 +100,7 @@ render: function(output) {
               prevStation = menu[prop].station
             }
             else {
-                item = '⚬ ' + capitalizeStr(menu[prop].label, 0, 1)
+              item = '⚬ ' + capitalizeStr(menu[prop].label, 0, 1)
               if(menu[prop].description != '') {
                   desc = menu[prop].description.replace(/<br \/>/g, '<br /> ⚬ ')
                   item += "<br />" + '⚬ ' + desc
