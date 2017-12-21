@@ -240,7 +240,7 @@ render: function(output) {
 
       if (localStorage.getItem('BonAppSettings') !== null) {
         savedDiet = localStorage.getItem('BonAppSettings')
-        var theValue = JSON.parse(savedDiet).diet
+        theValue = JSON.parse(savedDiet).diet
         document.querySelector('.myDiet').value = theValue
       }
       else {
