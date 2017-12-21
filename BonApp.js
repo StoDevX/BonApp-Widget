@@ -295,14 +295,12 @@ render: function(output) {
       }
 
       var saveSettings = function(diet) {
-        var friendly, userSettings
-
-        userSettings = {
+        var userSettings = {
           diet: diet
         }
 
         localStorage.setItem('BonAppSettings', JSON.stringify(userSettings))
-        friendly = parseMenu(theMenu, diet)
+        var friendly = parseMenu(theMenu, diet)
         outputString = createOutputString(friendly)
 
         return updateView(theDate, widgetSelect, title, outputString)
