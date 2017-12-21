@@ -27,8 +27,7 @@ def clean(stringToClean):
 	# Replace html
 	cleanString = h.unescape(string)
 	# Replace unicode
-	cleanString2 = unicodedata.normalize('NFKD', cleanString)
-	return cleanString2
+	return unicodedata.normalize('NFKD', cleanString)
 
 
 # Finds the cafeteria id and name
