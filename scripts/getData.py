@@ -4,13 +4,11 @@ import string, os, time, json, re, unicodedata, html.parser, requests
 # Bon appetit cafe hours api url
 url = "http://legacy.cafebonappetit.com/api/2/cafes"
 # How many cafeterias you want to parse (in order)
-totalCafes = 1818
+totalCafes = 3
 # What our file should be named
 fileName = "data.json"
 
 
-# Our constructed JSON data
-responseData = []
 # Parser to clean up the string names
 h = html.parser.HTMLParser()
 # Time when we started the script
@@ -18,8 +16,7 @@ start = time.time()
 
 def appendData(cafeId, cafeName, cafeLoc):
 	print(cafeId + ") " + cafeName + " in " + cafeLoc)
-	responseData.append({'id':cafeId, 'label':cafeName, 'desc':cafeLoc})
-
+	return {'id':cafeId, 'label':cafeName, 'desc':cafeLoc}
 
 def clean(stringToClean):
 	# Remove beginning and ending whitespace
@@ -32,6 +29,7 @@ def clean(stringToClean):
 
 # Finds the cafeteria id and name
 def getBonAppMenuData(url, id):
+	# Our constructed JSON data
 	response = requests.get(url, params={'cafe': id})
 	data = response.json()
 
@@ -64,12 +62,11 @@ def getBonAppMenuData(url, id):
 		else:
 			cafeLoc = clean(cafeCity) + ", " + clean(cafeState)
 
-
 		# Clean up the cafe name
 		cafeName = clean(cafeName)
 
 		# Construct the full return string
-		appendData(cafeId, cafeName, cafeLoc)
+		return appendData(cafeId, cafeName, cafeLoc)
 	except:
 		print('[Skipping. Moving on...]')
 		pass
@@ -85,13 +82,14 @@ def calculateFileSize():
 
 # Loop through the "known" amount of cafes
 for num in range(0, totalCafes):
-	getBonAppMenuData(url, num)
+	data = getBonAppMenuData(url, num)
+	print(data)
 	time.sleep(3)
 
 # Write our output to a file
 with open(fileName, 'w') as outfile:
 	# Output the data into a file
-	json.dump(responseData, outfile)
+	json.dump(data, outfile)
 	# Save the runtime
 	endTime = time.time() - start;
 
