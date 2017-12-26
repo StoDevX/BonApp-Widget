@@ -14,10 +14,6 @@ h = html.parser.HTMLParser()
 # Time when we started the script
 start = time.time()
 
-def appendData(cafeId, cafeName, cafeLoc):
-	print(cafeId + ") " + cafeName + " in " + cafeLoc)
-	return {'id':cafeId, 'label':cafeName, 'desc':cafeLoc}
-
 
 def clean(stringToClean):
 	# Remove beginning and ending whitespace
@@ -67,7 +63,8 @@ def getBonAppMenuData(url, id):
 		cafeName = clean(cafeName)
 
 		# Construct the full return string
-		return appendData(cafeId, cafeName, cafeLoc)
+		print(cafeId + ") " + cafeName + " in " + cafeLoc)
+		return {'id':cafeId, 'label':cafeName, 'desc':cafeLoc}
 	except:
 		print('[Skipping. Moving on...]')
 		pass
