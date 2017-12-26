@@ -25,7 +25,7 @@ If you find that your location is associated with Bon Appetit, it could be that 
 
 3. Run the following command
     ```sh
-    $ python getData.py
+    $ python3 getData.py
     ```
 
 ### Development
