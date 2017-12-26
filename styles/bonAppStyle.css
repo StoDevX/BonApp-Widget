@@ -76,6 +76,12 @@
     overflow-x: hidden;
 }
 
+ul, li {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+
 #spinnerImg {
     height: 30px;
     width: 30px;
@@ -176,10 +182,6 @@ hr {
     border-width: 1px;
     color: black;
     border-style: solid;
-}
-
-::-webkit-scrollbar {
-    display: none;
 }
 
 .e {
