@@ -4,7 +4,7 @@ import string, os, time, json, re, unicodedata, html.parser, requests
 # Bon appetit cafe hours api url
 url = "http://legacy.cafebonappetit.com/api/2/cafes"
 # How many cafeterias you want to parse (in order)
-totalCafes = 3
+totalCafes = 1818
 # What our file should be named
 fileName = "data.json"
 
@@ -18,6 +18,7 @@ def appendData(cafeId, cafeName, cafeLoc):
 	print(cafeId + ") " + cafeName + " in " + cafeLoc)
 	return {'id':cafeId, 'label':cafeName, 'desc':cafeLoc}
 
+
 def clean(stringToClean):
 	# Remove beginning and ending whitespace
 	string = stringToClean.strip()
@@ -29,8 +30,8 @@ def clean(stringToClean):
 
 # Finds the cafeteria id and name
 def getBonAppMenuData(url, id):
-	# Our constructed JSON data
-	response = requests.get(url, params={'cafe': id})
+	params = {'cafe': id}
+	response = requests.get(url, params=params)
 	data = response.json()
 
 	try:
@@ -62,6 +63,7 @@ def getBonAppMenuData(url, id):
 		else:
 			cafeLoc = clean(cafeCity) + ", " + clean(cafeState)
 
+
 		# Clean up the cafe name
 		cafeName = clean(cafeName)
 
@@ -80,20 +82,29 @@ def calculateFileSize():
 	return str(os.path.getsize(fileName))
 
 
-# Loop through the "known" amount of cafes
-for num in range(0, totalCafes):
-	data = getBonAppMenuData(url, num)
-	print(data)
-	time.sleep(3)
+def main():
+	# Our constructed JSON data
+	responseData = []
 
-# Write our output to a file
-with open(fileName, 'w') as outfile:
-	# Output the data into a file
-	json.dump(data, outfile)
-	# Save the runtime
-	endTime = time.time() - start;
+	# Loop through the "known" amount of cafes
+	for num in range(0, totalCafes):
+		data = getBonAppMenuData(url, num)
+		# Append if it's not null
+		if data is not None:
+			responseData.append(data)
+		time.sleep(3)
 
-print('')
-print('File: ' + fileName)
-print('Size: ' + calculateFileSize() + ' bytes')
-print('This took ' + num2str(endTime, 2) + ' seconds\n')
+	# Write our output to a file
+	with open(fileName, 'w') as outfile:
+		# Output the data into a file
+		json.dump(responseData, outfile)
+		# Save the runtime
+		endTime = time.time() - start;
+
+	print('')
+	print('File: ' + fileName)
+	print('Size: ' + calculateFileSize() + ' bytes')
+	print('This took ' + num2str(endTime, 2) + ' seconds\n')
+
+if __name__ == '__main__':
+	main()
