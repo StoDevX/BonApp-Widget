@@ -4,7 +4,7 @@ import string, os, time, json, re, unicodedata, html.parser, requests
 # Bon appetit cafe hours api url
 url = "http://legacy.cafebonappetit.com/api/2/cafes"
 # How many cafeterias you want to parse (in order)
-totalCafes = 1818
+totalCafes = 2393
 # What our file should be named
 fileName = "data.json"
 
@@ -83,7 +83,7 @@ def main():
 	responseData = []
 
 	# Loop through the "known" amount of cafes
-	for num in range(0, totalCafes):
+	for num in range(1, totalCafes):
 		data = getBonAppMenuData(url, num)
 		# Append if it's not null
 		if data is not None:
